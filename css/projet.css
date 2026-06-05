@@ -1,0 +1,343 @@
+/* ============================================================
+   PORTFOLIO ANTONIN BERNARDI — css/projet.css (Harmonisé)
+   ============================================================ */
+
+:root {
+    /* Aligné sur le style sombre pur mat de l'index */
+    --bg: #030303;
+    --bg2: #0a0a0c;
+    --surface: #0a0a0c;
+    --surface2: #141416;
+    --border: #141416;
+    --border2: #4e5561;
+    --cyan: #22d3ee;
+    --violet: #a78bfa;
+    --green: #4ade80;
+    --text: #e2e8f0;
+    --text-muted: #7a828e;
+    --text-sub: #4e5561;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Plus Jakarta Sans', sans-serif;
+    --display: 'Space Grotesk', sans-serif;
+    --radius: 12px;
+    --radius-sm: 6px;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Arrière plan Mesh identique à l'accueil */
+.bg-mesh {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #030303;
+    z-index: -2;
+    overflow: hidden;
+}
+
+    .bg-mesh::after {
+        content: "";
+        position: absolute;
+        top: -10%;
+        left: -10%;
+        width: 50%;
+        height: 50%;
+        background: radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%);
+        filter: blur(60px);
+    }
+
+/* Éléments de structure de page projet */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(3, 3, 3, 0.7);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-logo {
+    font-family: var(--display);
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.nav-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.nav-back {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--cyan);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+    .nav-back:hover {
+        opacity: 0.8;
+    }
+
+.proj-container {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+}
+
+.proj-hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .proj-hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.proj-kicker {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--cyan);
+}
+
+.proj-h1 {
+    font-family: var(--display);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 1.5rem 0;
+    color: var(--text);
+}
+
+.proj-intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.proj-hero-right {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+}
+
+.proj-meta-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.meta-lbl {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-sub);
+    text-transform: uppercase;
+}
+
+.meta-val {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.proj-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    margin-bottom: 6rem;
+}
+
+.proj-section {
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;
+    gap: 2.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .proj-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.proj-section-title {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.proj-section-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+}
+
+    .proj-section-content p {
+        margin: 0 0 1.5rem 0;
+    }
+
+        .proj-section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+/* Bloc d'alerte pédagogique / Professeur */
+.prof-note {
+    background: rgba(34, 211, 238, 0.03);
+    border-left: 3px solid var(--cyan);
+    padding: 1.5rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 2rem 0;
+}
+
+    .prof-note h4 {
+        margin: 0 0 0.5rem 0;
+        font-family: var(--display);
+        color: var(--text);
+        font-size: 1rem;
+    }
+
+    .prof-note p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+/* Blocs de commandes Linux / Configurations */
+.code-block {
+    background: #010102;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: #a78bfa;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+/* Grilles pour les futures images */
+.img-grid-placeholder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 576px) {
+    .img-grid-placeholder {
+        grid-template-columns: 1fr;
+    }
+}
+
+.img-box {
+    background: #09090b;
+    border: 1px dashed var(--border2);
+    border-radius: var(--radius-sm);
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-sub);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.tech-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-bright);
+}
+
+.proj-footer {
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.proj-footer-text {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-sub);
+}
+
+.proj-nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.proj-nav-link {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: 0.2s;
+}
+
+    .proj-nav-link:hover {
+        border-color: var(--border2);
+        color: var(--text);
+    }
+
+    .proj-nav-link.next {
+        background: var(--cyan);
+        color: #030303;
+        border: none;
+        font-weight: 600;
+    }

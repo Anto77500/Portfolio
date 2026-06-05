@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projet 3 — Déploiement d'une Base de Données Sécurisée</title>
+  <link rel="stylesheet" href="../css/projet.css" />
+  <style>
+    /* Styles pour le zoom de l'image */
+    .zoomable-img {
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+    .img-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .img-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .img-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      cursor: zoom-out;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .img-overlay.active img {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">AB.</a>
+    <span class="nav-tag">03 / 03 · Dossier Technique E5</span>
+    <a href="../index.html#projects" class="nav-back">← Accueil</a>
+  </nav>
+
+  <div class="proj-container">
+    <div class="proj-hero">
+      <div>
+        <div class="proj-kicker">Projet 03 · Intégrité & Sauvegardes</div>
+        <h1 class="proj-h1">Gestion de Base de Données Relationnelle</h1>
+        <p class="proj-intro">Sécurisation, cloisonnement des privilèges SQL et automatisation des sauvegardes sur un serveur MariaDB.</p>
+      </div>
+      <div class="proj-hero-right">
+        <div class="proj-meta-box">
+          <div class="meta-row"><span class="meta-lbl">Contexte</span><span class="meta-val">Start-up MedicaClick</span></div>
+          <div class="meta-row"><span class="meta-lbl">SGBDR</span><span class="meta-val">MariaDB / MySQL Linux</span></div>
+          <div class="meta-row"><span class="meta-lbl">Sécurité</span><span class="meta-val">Script Shell / Cron Job</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-body">
+      
+      <div class="proj-section">
+        <div class="proj-section-title">1. Contexte & Problématique</div>
+        <div class="proj-section-content">
+          <p>La start-up <strong>MedicaClick</strong> développe une plateforme de prise de rendez-vous médicaux et de gestion d'approvisionnement pour les structures de santé. L'application Web s'appuie sur une base de données relationnelle stockant des données d'utilisateurs et des informations organisationnelles sensibles.</p>
+          <p><strong>Problématique identifiée :</strong> Initialement, l'application se connectait à la base de données en utilisant le compte d'administration global `root`. En cas de faille de sécurité ou d'injection SQL sur l'interface Web, un attaquant pouvait obtenir le contrôle total de l'ensemble du serveur de données, supprimer des tables entières ou altérer le système de fichiers sous-jacent. De surcroît, aucun mécanisme de sauvegarde régulier n'était planifié, menaçant la continuité d'activité en cas de panne matérielle.</p>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">2. Objectifs Techniques</div>
+        <div class="proj-section-content">
+          <p>Afin de s'aligner sur les bonnes pratiques de sécurité de l'ANSSI, la réalisation technique doit valider les critères suivants :</p>
+          <ul>
+            <li><strong>Durcissement du SGBDR :</strong> Éliminer l'ensemble des vulnérabilités d'installation d'origine (comptes invités, bases de tests publiques).</li>
+            <li><strong>Principe du moindre privilège :</strong> Restreindre l'accès applicatif Web à un utilisateur dédié, doté uniquement des permissions d'exécution nécessaires (<code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>) en excluant les droits destructifs.</li>
+            <li><strong>Automatisation de la résilience :</strong> Mettre en œuvre une routine autonome de sauvegarde logique nocturne avec horodatage pour archiver les données sans intervention humaine.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">3. Schéma de l'Infrastructure</div>
+        <div class="proj-section-content">
+          <p>Le diagramme ci-dessous schématise le principe de cloisonnement mis en place : l'application Web interagit de manière isolée avec le jeu de données via son compte sécurisé et bridé, tandis que le planificateur système effectue un export vers un espace d'archivage étanche (Cliquez sur l'image pour l'agrandir) :</p>
+          <div class="img-grid-placeholder" style="border: none; height: auto; margin-top: 1.5rem;">
+            <img src="Image Projet 3.jpg" alt="Visualisation du terminal d'administration de la base de données" class="zoomable-img" style="width: 100%; border-radius: 6px; border: 1px solid var(--border2);" />
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">4. Réalisation Technique</div>
+        <div class="proj-section-content">
+          
+          <h3>Étape 4.1 : Durcissement initial de l'instance MariaDB</h3>
+          <p>Installation du moteur SQL puis sécurisation de l'environnement d'exécution via le script d'initialisation recommandé :</p>
+          <div class="code-block">apt install mariadb-server -y && mysql_secure_installation</div>
+          <p>Cette étape permet de configurer un mot de passe `root` fort, de désactiver les connexions anonymes et de bloquer l'accès distant à ce compte d'administration.</p>
+
+          <h3>Étape 4.2 : Cloisonnement SQL et application des privilèges</h3>
+          <p>Création de la base de données dédiée à MedicaClick et assignation des privilèges stricts à l'utilisateur applicatif local :</p>
+          <div class="code-block">
+CREATE DATABASE bts_infrastructure;<br>
+CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'MotDePasseFortEtSûr123!';<br>
+GRANT SELECT, INSERT, UPDATE ON bts_infrastructure.* TO 'app_user'@'localhost';<br>
+FLUSH PRIVILEGES;
+          </div>
+
+          <h3>Étape 4.3 : Automatisation des sauvegardes régulières</h3>
+          <p>Rédaction d'un script d'automatisation shell (Bash) utilisant l'outil d'extraction logique <code>mysqldump</code> :</p>
+          <div class="code-block">
+#!/bin/bash<br>
+DATE=$(date +%Y-%m-%d)<br>
+mysqldump -u root -p'password' bts_infrastructure > /backup/db_backup_$DATE.sql
+          </div>
+          <p>Pour planifier cette tâche de sécurité de manière récurrente, la ligne de déclenchement est ajoutée au démon Crontab de l'administrateur système pour une exécution à 2h00 du matin :</p>
+          <div class="img-grid-placeholder" style="border: none; height: auto; margin-top: 1rem;">
+            <img src="../images/projet3_cron_backup.png" alt="Planification Crontab de la sauvegarde MariaDB" style="width: 100%; border-radius: 6px; border: 1px solid var(--border2);" />
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">5. Bilan & Compétences</div>
+        <div class="proj-section-content">
+          <p><strong>Bilan opérationnel :</strong> La plateforme MedicaClick dispose désormais d'un socle de données sécurisé et résilient. Une faille applicative Web ne permet plus de compromettre le serveur SGBDR complet grâce au cloisonnement utilisateur. Les archives SQL générées quotidiennement garantissent la non-perte de données en production.</p>
+          
+          <h3 style="margin-top: 1.5rem;">Compétences validées du référentiel BTS SIO :</h3>
+          <div class="tech-stack">
+            <span class="tech-badge">B1.1 — Gérer des objets de l'infrastructure système (SGBDR)</span>
+            <span class="tech-badge">B3.1 — Anticiper les vulnérabilités et durcir les configurations</span>
+            <span class="tech-badge">B3.3 — Gérer les sauvegardes et assurer la continuité d'activité</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="proj-footer">
+    <span class="proj-footer-text">Antonin Bernardi · BTS SIO SISR · 2026</span>
+    <div class="proj-nav-links">
+      <a href="projet2.html" class="proj-nav-link">← Projet Précédent</a>
+      <a href="../index.html#projects" class="proj-nav-link next">Retour à l'accueil →</a>
+    </div>
+  </div>
+
+  <!-- Conteneur pour l'image zoomée -->
+  <div class="img-overlay" id="overlay">
+    <img id="overlay-img" src="" alt="Zoom schéma" />
+  </div>
+
+  <script>
+    const zoomableImg = document.querySelector('.zoomable-img');
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlay-img');
+
+    if (zoomableImg) {
+      zoomableImg.addEventListener('click', () => {
+        overlayImg.src = zoomableImg.src;
+        overlay.classList.add('active');
+      });
+    }
+
+    overlay.addEventListener('click', () => {
+      overlay.classList.remove('active');
+    });
+  </script>
+</body>
+</html>

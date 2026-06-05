@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projet 2 — Architecture Réseau Multi-VLANs</title>
+  <link rel="stylesheet" href="../css/projet.css" />
+  <style>
+    /* Styles pour le zoom de l'image */
+    .zoomable-img {
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+    .img-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .img-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .img-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      cursor: zoom-out;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .img-overlay.active img {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">AB.</a>
+    <span class="nav-tag">02 / 03 · Dossier Technique E5</span>
+    <a href="../index.html#projects" class="nav-back">← Accueil</a>
+  </nav>
+
+  <div class="proj-container">
+    <div class="proj-hero">
+      <div>
+        <div class="proj-kicker">Projet 02 · Sécurisation & Commutation</div>
+        <h1 class="proj-h1">Architecture Réseau Segmentée Multi-VLANs</h1>
+        <p class="proj-intro">Conception, isolation logique et routage filtré d'un réseau d'entreprise sous Cisco Packet Tracer V8.</p>
+      </div>
+      <div class="proj-hero-right">
+        <div class="proj-meta-box">
+          <div class="meta-row"><span class="meta-lbl">Contexte</span><span class="meta-val">Cabinet SecurAssur</span></div>
+          <div class="meta-row"><span class="meta-lbl">Solution</span><span class="meta-val">Cisco IOS v15 / Trunk 802.1Q</span></div>
+          <div class="meta-row"><span class="meta-lbl">Sécurité</span><span class="meta-val">Access Control Lists (ACL)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-body">
+      
+      <div class="proj-section">
+        <div class="proj-section-title">1. Contexte & Problématique</div>
+        <div class="proj-section-content">
+          <p>Le cabinet d'assurances <strong>SecurAssur</strong> accueille quotidiennement des collaborateurs internes et des clients externes (invités) au sein de ses locaux. L'infrastructure d'origine ne disposait d'aucun cloisonnement : tous les périphériques partageaient le même domaine de diffusion (Flat Network).</p>
+          <p><strong>Problématique identifiée :</strong> Un ordinateur invité, simplement connecté en Wi-Fi ou sur une prise Ethernet libre de la salle d'attente, pouvait analyser le trafic réseau local, découvrir les serveurs internes de l'entreprise et intercepter des données financières confidentielles ou injecter un malware sur le parc informatique.</p>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">2. Objectifs Techniques</div>
+        <div class="proj-section-content">
+          <p>Pour remédier à cette faille de sécurité majeure, le cahier des charges imposes les exigences suivantes :</p>
+          <ul>
+            <li><strong>Segmentation logique :</strong> Isolation complète du trafic réseau via la création de deux réseaux virtuels distincts : le <code>VLAN 10 (Administration)</code> et le <code>VLAN 20 (Invités)</code>.</li>
+            <li><strong>Routage Inter-VLAN :</strong> Implémentation d'une topologie <em>Router-on-a-stick</em> pour acheminer les flux autorisés vers la passerelle via une liaison partagée.</li>
+            <li><strong>Contrôle des flux :</strong> Interdiction stricte aux hôtes du VLAN 20 d'initier une session de communication ou un scan vers les machines du VLAN 10.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">3. Schéma de l'Infrastructure</div>
+        <div class="proj-section-content">
+          <p>Ci-dessous la topologie réseau modélisée et simulée sous Cisco Packet Tracer V8 représentant la structure logique mise en place (Cliquez sur l'image pour l'agrandir) :</p>
+          <div class="img-grid-placeholder" style="border: none; height: auto; margin-top: 1.5rem;">
+            <img src="Image Projet 2.jpg" alt="Schéma d'infrastructure réseau Cisco Packet Tracer V8" class="zoomable-img" style="width: 100%; border-radius: 6px; border: 1px solid var(--border2);" />
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">4. Réalisation Technique</div>
+        <div class="proj-section-content">
+          
+          <h3>Étape 4.1 : Configuration des VLANs sur le Commutateur</h3>
+          <p>Création des identifiants et assignation des interfaces d'accès (Postes de travail) sur le switch Cisco Catalyst 2960 :</p>
+          <div class="code-block">
+Switch# configure terminal<br>
+Switch(config)# vlan 10<br>
+Switch(config-vlan)# name Administration<br>
+Switch(config-vlan)# vlan 20<br>
+Switch(config-vlan)# name Invites<br>
+Switch(config-vlan)# exit<br>
+Switch(config)# interface fastEthernet 0/1<br>
+Switch(config-if)# switchport mode access<br>
+Switch(config-if)# switchport access vlan 10
+          </div>
+
+          <h3>Étape 4.2 : Activation du Trunking et Routage Inter-VLAN</h3>
+          <p>Configuration du port de liaison montante en mode Trunk 802.1Q pour transporter les trames tagguées de tous les VLANs vers le routeur :</p>
+          <div class="code-block">
+Switch(config)# interface gigabitEthernet 0/1<br>
+Switch(config-if)# switchport mode trunk
+          </div>
+          <p>Sur le routeur Cisco 1941, configuration des sous-interfaces logiques servant de passerelles d'infrastructure :</p>
+          <div class="code-block">
+Router(config)# interface gigabitEthernet 0/0.10<br>
+Router(config-subif)# encapsulation dot1Q 10<br>
+Router(config-subif)# ip address 192.168.10.254 255.255.255.0<br>
+Router(config-subif)# exit<br>
+Router(config)# interface gigabitEthernet 0/0.20<br>
+Router(config-subif)# encapsulation dot1Q 20<br>
+Router(config-subif)# ip address 192.168.20.254 255.255.255.0
+          </div>
+          <div class="img-grid-placeholder" style="border: none; height: auto; margin: 1rem 0;">
+            <img src="../images/projet2_router_config.png" alt="Configuration des sous-interfaces du routeur" style="width: 100%; border-radius: 6px; border: 1px solid var(--border2);" />
+          </div>
+
+          <h3>Étape 4.3 : Implémentation de la Politique de Sécurité (ACL)</h3>
+          <p>Création d'une liste de contrôle d'accès standard pour bloquer le réseau des invités à destination de la zone d'administration sensible :</p>
+          <div class="code-block">
+Router(config)# access-list 1 deny 192.168.20.0 0.0.0.255<br>
+Router(config)# access-list 1 permit any<br>
+Router(config)# interface gigabitEthernet 0/0.10<br>
+Router(config-subif)# ip access-group 1 out
+          </div>
+          
+          <h3>Étape 4.4 : Validation des Tests de Filtrage</h3>
+          <p>Une tentative de ping menée depuis une station de la zone Invité vers le réseau Admin est immédiatement rejetée par l'ACL du routeur :</p>
+          <div class="img-grid-placeholder" style="border: none; height: auto; margin-top: 1rem;">
+            <img src="../images/projet2_acl_test.png" alt="Validation de la sécurité - Rejet de la communication" style="width: 100%; border-radius: 6px; border: 1px solid var(--border2);" />
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">5. Bilan & Compétences</div>
+        <div class="proj-section-content">
+          <p><strong>Bilan opérationnel :</strong> L'infrastructure réseau du cabinet SecurAssur est désormais segmentée conformément aux exigences de sécurité. Les invités accèdent exclusivement à leur passerelle Internet sans pouvoir interférer ou scanner le sous-réseau interne contenant l'annuaire d'entreprise.</p>
+          
+          <h3 style="margin-top: 1.5rem;">Compétences validées du référentiel BTS SIO :</h3>
+          <div class="tech-stack">
+            <span class="tech-badge">B1.2 — Gérer des objets de l'infrastructure réseau (VLAN, Trunk)</span>
+            <span class="tech-badge">B1.3 — Configurer les éléments d'interconnexion (Routage Cisco IOS)</span>
+            <span class="tech-badge">B3.2 — Protéger les éléments de l'infrastructure (ACL de filtrage)</span>
+            <span class="tech-badge">B4.1 — Tester les correctifs et les configurations (Troubleshooting)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="proj-footer">
+    <span class="proj-footer-text">Antonin Bernardi · BTS SIO SISR · 2026</span>
+    <div class="proj-nav-links">
+      <a href="projet1.html" class="proj-nav-link">← Projet Précédent</a>
+      <a href="projet3.html" class="proj-nav-link next">Projet Suivant →</a>
+    </div>
+  </div>
+
+  <!-- Conteneur pour l'image zoomée -->
+  <div class="img-overlay" id="overlay">
+    <img id="overlay-img" src="" alt="Zoom schéma" />
+  </div>
+
+  <script>
+    const zoomableImg = document.querySelector('.zoomable-img');
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlay-img');
+
+    if (zoomableImg) {
+      zoomableImg.addEventListener('click', () => {
+        overlayImg.src = zoomableImg.src;
+        overlay.classList.add('active');
+      });
+    }
+
+    overlay.addEventListener('click', () => {
+      overlay.classList.remove('active');
+    });
+  </script>
+</body>
+</html>

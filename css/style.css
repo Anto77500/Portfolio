@@ -1,0 +1,849 @@
+:root {
+    --bg: #030303;
+    --surface: #0a0a0c;
+    --border: #141416;
+    --text-main: #7a828e;
+    --text-bright: #e2e8f0;
+    --text-muted: #4e5561;
+    --cyan-bg: rgba(6, 182, 212, 0.10);
+    --cyan-txt: #22d3ee;
+    --violet-bg: rgba(139, 92, 246, 0.10);
+    --violet-txt: #a78bfa;
+    --green-bg: rgba(34, 197, 94, 0.10);
+    --green-txt: #4ade80;
+    --pink-bg: rgba(236, 72, 153, 0.10);
+    --pink-txt: #f472b6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--bg);
+    color: var(--text-bright);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ── FOND DE MAILLE HYBRIDE GRAPHISME AVANCÉ ── */
+.bg-mesh {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center center;
+}
+
+.bg-orb {
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(6, 182, 212, 0.03) 50%, transparent 100%);
+    filter: blur(60px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ── BARRE DE NAVIGATION (FIXE ULTRA CLEAN) ── */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: rgba(3, 3, 3, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4rem;
+    z-index: 100;
+}
+
+.nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text-bright);
+    text-decoration: none;
+    letter-spacing: -0.03em;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.2rem;
+}
+
+    .nav-links a {
+        color: var(--text-main);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.25s ease;
+    }
+
+        .nav-links a:hover {
+            color: var(--text-bright);
+        }
+
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+    .nav-hamburger span {
+        width: 22px;
+        height: 2px;
+        background: var(--text-bright);
+        transition: 0.3s;
+    }
+
+/* ── CONTENEURS DU CONTENU GLOBAL ── */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+section {
+    padding: 7rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.section-container {
+    width: 100%;
+}
+
+.section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--violet-txt);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+}
+
+.section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+}
+
+/* ── MODULE HERO DE PRÉSENTATION ── */
+#hero {
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding-top: 120px;
+}
+
+.hero-badge {
+    display: inline-flex;
+    background: var(--cyan-bg);
+    color: var(--cyan-txt);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.8rem;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+}
+
+.hero-sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-bright);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+    .hero-sub .highlight {
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        background: linear-gradient(90deg, var(--cyan-txt), var(--violet-txt));
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+.hero-desc {
+    color: var(--text-main);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 520px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary {
+    background: var(--text-bright);
+    color: var(--bg);
+    padding: 0.8rem 1.6rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--text-bright);
+    transition: all 0.25s ease;
+}
+
+    .btn-primary:hover {
+        background: transparent;
+        color: var(--text-bright);
+    }
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-bright);
+    padding: 0.8rem 1.6rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: background 0.25s, border-color 0.25s;
+}
+
+    .btn-secondary:hover {
+        border-color: var(--text-main);
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+/* CARTE CONSOLE LINUX */
+.hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.card-header {
+    background: #0f0f12;
+    padding: 0.75rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .card-header .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #242427;
+    }
+
+.card-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.card-body {
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.code-ln {
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+}
+
+.code-usr {
+    color: var(--green-txt);
+}
+
+.code-out {
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.cursor {
+    animation: blink 1s infinite;
+    color: var(--cyan-txt);
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ── PARCOURS À PROPOS ── */
+.about-inner {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text {
+    color: var(--text-main);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+    .info-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+.info-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.info-val {
+    font-size: 0.95rem;
+    color: var(--text-bright);
+    margin-top: 0.25rem;
+}
+
+/* ── GRILLE DES COMPÉTENCES TECHNIQUES ── */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+}
+
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.skill-icon {
+    font-size: 1.2rem;
+}
+
+.skill-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.skill-item {
+    margin-bottom: 1.25rem;
+}
+
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.skill-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-bright);
+    font-weight: 600;
+}
+
+    .skill-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .skill-item span {
+        font-size: 0.85rem;
+        color: var(--text-main);
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+.skill-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: var(--text-bright);
+    width: 0%;
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── GRILLE DE PRÉSENTATION DES PROJETS ── */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-img-placeholder {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.project-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.project-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.project-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.project-desc {
+    color: var(--text-main);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.project-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-bright);
+    text-decoration: none;
+    margin-top: auto;
+}
+
+/* ── EXAMENS ET PREUVE E5 ── */
+.doc-viewer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.doc-info h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.doc-info p {
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.cv-preview-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    display: block;
+    margin: 0 auto;
+}
+
+/* ── MODULE VEILLE TECHNOLOGIQUE AUTOMATIQUE ── */
+.veille-filters {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.source-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+    .source-btn:hover, .source-btn.active {
+        border-color: var(--text-bright);
+        color: var(--text-bright);
+    }
+
+.veille-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.veille-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.veille-source-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.veille-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+    .veille-title a {
+        color: var(--text-bright);
+        text-decoration: none;
+    }
+
+.veille-desc {
+    color: var(--text-main);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* ── FORMULAIRE DE CONTACT ── */
+.contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 5rem;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-link {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: border-color 0.25s;
+}
+
+    .contact-link:hover {
+        border-color: var(--text-muted);
+    }
+
+.contact-link-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: block;
+}
+
+.contact-link-val {
+    font-size: 0.95rem;
+    color: var(--text-bright);
+    margin-top: 0.25rem;
+}
+
+.contact-link-arrow {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.contact-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.form-input, .form-textarea {
+    background: #030303;
+    border: 1px solid var(--border);
+    padding: 0.85rem;
+    border-radius: 6px;
+    color: var(--text-bright);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.form-textarea {
+    height: 120px;
+    resize: none;
+}
+
+    .form-input:focus, .form-textarea:focus {
+        outline: none;
+        border-color: var(--text-muted);
+    }
+
+.form-submit {
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+/* ── BAS DE PAGE (FOOTER) ── */
+footer {
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ── ANIMATIONS DE REVEAL (Gérées par le JS d'origine) ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+    .reveal.visible {
+        opacity: 1;
+        transform: none;
+    }
+
+.skill-fill.animated {
+    /* Déclenché par JS */
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+    #hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+        padding-top: 7rem;
+    }
+
+    .hero-desc {
+        margin: 0 auto 2.5rem;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-card {
+        display: none;
+    }
+
+    .about-inner, .doc-viewer-grid, .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .skills-grid, .projects-grid, .veille-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1.5rem;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 2rem;
+        gap: 1.5rem;
+    }
+
+        .nav-links.open {
+            display: flex;
+        }
+
+    .nav-hamburger {
+        display: flex;
+    }
+
+    .skills-grid, .projects-grid, .veille-grid {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+/* ── GRILLE E5 (CV + TABLEAU) ── */
+.doc-viewer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.doc-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.doc-preview {
+    margin: 1.5rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+
+.doc-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.doc-preview:hover .doc-img {
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    background: var(--cyan-bg);
+    color: var(--cyan-txt);
+    border: 1px solid var(--cyan-txt);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+    .btn-primary:hover {
+        background: var(--cyan-txt);
+        color: var(--bg);
+    }

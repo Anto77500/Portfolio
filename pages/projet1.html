@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projet 1 — Serveur d'Infrastructure Linux</title>
+  <link rel="stylesheet" href="../css/projet.css" />
+  <style>
+    /* Styles pour le zoom de l'image */
+    .zoomable-img {
+      cursor: zoom-in;
+      transition: transform 0.2s ease;
+    }
+    .img-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .img-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .img-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      cursor: zoom-out;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .img-overlay.active img {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">AB.</a>
+    <span class="nav-tag">01 / 03 · Dossier Technique E5</span>
+    <a href="../index.html#projects" class="nav-back">← Accueil</a>
+  </nav>
+
+  <div class="proj-container">
+    <div class="proj-hero">
+      <div>
+        <div class="proj-kicker">Projet 01 · Services Réseau Fondamentaux</div>
+        <h1 class="proj-h1">Serveur Debian d'Infrastructure Intégrée</h1>
+        <p class="proj-intro">Déploiement centralisé, interconnexion et sécurisation des services ISC-DHCP-Server et DNS Bind9.</p>
+      </div>
+      <div class="proj-hero-right">
+        <div class="proj-meta-box">
+          <div class="meta-row"><span class="meta-lbl">Contexte</span><span class="meta-val">PME Innov'Tech</span></div>
+          <div class="meta-row"><span class="meta-lbl">Services</span><span class="meta-val">ISC-DHCP / BIND9 DNS</span></div>
+          <div class="meta-row"><span class="meta-lbl">OS Serveur</span><span class="meta-val">Debian 12 Bookworm</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-body">
+      
+      <div class="proj-section">
+        <div class="proj-section-title">1. Contexte & Problématique</div>
+        <div class="proj-section-content">
+          <p>La PME <strong>Innov'Tech</strong>, spécialisée dans l'édition de solutions logicielles, regroupe 30 collaborateurs au sein de son siège social. Jusqu'à présent, la gestion des configurations IP du parc informatique s'effectuait manuellement par l'attribution d'IP fixes sur chaque poste de travail.</p>
+          <p><strong>Problématique identifiée :</strong> Cette absence d'automatisation entraînait une surcharge de travail conséquente pour le service informatique et de nombreux conflits d'adresses IP lors de l'arrivée de nouveaux équipements. De plus, les serveurs de développement locaux n'étaient accessibles que via leurs adresses IP numériques, rendant la navigation complexe, sujette aux erreurs et peu évolutive.</p>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">2. Objectifs Techniques</div>
+        <div class="proj-section-content">
+          <p>Pour moderniser et stabiliser l'infrastructure d'Innov'Tech, le projet doit répondre aux objectifs suivants :</p>
+          <ul>
+            <li><strong>Centralisation réseau :</strong> Automatiser entièrement la distribution des adresses IP, masques de sous-réseau, passerelles par défaut et DNS à l'ensemble du parc de terminaux.</li>
+            <li><strong>Résolution de noms locale :</strong> Mettre en œuvre un serveur DNS interne gérant le suffixe de zone privateur <code>antonin.local</code> pour associer des noms compréhensibles aux ressources et machines de l'entreprise.</li>
+            <li><strong>Disponibilité du service :</strong> Garantir une configuration réseau fixe pour le serveur lui-même et s'assurer du lancement persistant des démons systèmes au démarrage de la machine Debian.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">3. Schéma de l'Infrastructure</div>
+        <div class="proj-section-content">
+          <p>Le schéma logique ci-dessous illustre l'intégration du serveur Debian au cœur du réseau local d'Innov'Tech, distribuant les configurations réseau et résolvant les requêtes de noms des stations clientes (Cliquez sur l'image pour l'agrandir) :</p>
+          <div class="img-grid-placeholder" style="border: none; height: auto; margin-top: 1.5rem;">
+            <img src="Image Projet 1.jpg" alt="Visualisation de la configuration réseau d'infrastructure Linux" class="zoomable-img" style="width: 100%; border-radius: 6px; border: 1px solid var(--border2);" />
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">4. Réalisation Technique</div>
+        <div class="proj-section-content">
+          
+          <h3>Étape 4.1 : Fixation des paramètres d'interface du serveur</h3>
+          <p>Afin d'assurer son rôle d'infrastructure, le serveur Debian doit obligatoirement posséder des paramètres réseau statiques. Nous modifions le fichier réseau principal :</p>
+          <div class="code-block">nano /etc/network/interfaces</div>
+          <p>Déclaration de l'adresse IP persistante appliquée à la carte réseau :</p>
+          <div class="code-block">
+auto eth0<br>
+iface eth0 inet static<br>
+&nbsp;&nbsp;&nbsp;&nbsp;address 192.168.1.10<br>
+&nbsp;&nbsp;&nbsp;&nbsp;netmask 255.255.255.0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;gateway 192.168.1.1
+          </div>
+
+          <h3>Étape 4.2 : Installation et configuration d'ISC-DHCP-Server</h3>
+          <p>Déploiement du service d'allocation dynamique d'adresses IP pour les collaborateurs :</p>
+          <div class="code-block">apt update && apt install isc-dhcp-server -y</div>
+          <p>Configuration de l'étendue réseau (Scope) et des options d'infrastructure dans <code>/etc/dhcp/dhcpd.conf</code> :</p>
+          <div class="code-block">
+subnet 192.168.1.0 netmask 255.255.255.0 {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;range 192.168.1.50 192.168.1.150;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;option routers 192.168.1.1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;option domain-name-servers 192.168.1.10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;option domain-name "antonin.local";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;default-lease-time 600;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;max-lease-time 7200;<br>
+}
+          </div>
+          <p>Contrôle du bon démarrage et statut opérationnel du service via le gestionnaire de services Linux :</p>
+          <div class="img-grid-placeholder" style="border: none; height: auto; margin: 1rem 0;">
+            <img src="../images/projet1_status_dhcp.png" alt="Statut actif du service DHCP sous Linux Debian" style="width: 100%; border-radius: 6px; border: 1px solid var(--border2);" />
+          </div>
+
+          <h3>Étape 4.3 : Mise en place du serveur de noms DNS (Bind9)</h3>
+          <p>Installation du paquet d'autorité DNS et déclaration de la zone locale directe au sein du fichier <code>/etc/bind/named.conf.local</code> :</p>
+          <div class="code-block">
+zone "antonin.local" {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;type master;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file "/etc/bind/db.antonin.local";<br>
+};
+          </div>
+          <p>Enregistrement de type A associant le nom d'hôte du serveur à son adresse IP de destination dans la base de zone :</p>
+          <div class="code-block">
+srv-deb.antonin.local.&nbsp;&nbsp;&nbsp;&nbsp;IN&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;&nbsp;192.168.1.10
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-section">
+        <div class="proj-section-title">5. Bilan & Compétences</div>
+        <div class="proj-section-content">
+          <p><strong>Bilan opérationnel :</strong> L'infrastructure de la PME Innov'Tech est désormais stable et automatisée. Les machines des employés reçoivent leurs configurations IP réseau sans intervention humaine, éliminant totalement les risques de conflits d'adresses. L'accès aux applications locales est facilité par l'utilisation de la zone DNS interne.</p>
+          
+          <h3 style="margin-top: 1.5rem;">Compétences validées du référentiel BTS SIO :</h3>
+          <div class="tech-stack">
+            <span class="tech-badge">B1.1 — Gérer des objets de l'infrastructure système (Services Linux)</span>
+            <span class="tech-badge">B1.4 — Concevoir et administrer un service réseau (DHCP, DNS)</span>
+            <span class="tech-badge">B4.1 — Superviser et contrôler le bon fonctionnement des services</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="proj-footer">
+    <span class="proj-footer-text">Antonin Bernardi · BTS SIO SISR · 2026</span>
+    <div class="proj-nav-links">
+      <a href="../index.html#projects" class="proj-nav-link">← Retour</a>
+      <a href="projet2.html" class="proj-nav-link next">Projet Suivant →</a>
+    </div>
+  </div>
+
+  <!-- Conteneur pour l'image zoomée -->
+  <div class="img-overlay" id="overlay">
+    <img id="overlay-img" src="" alt="Zoom schéma" />
+  </div>
+
+  <script>
+    const zoomableImg = document.querySelector('.zoomable-img');
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlay-img');
+
+    if (zoomableImg) {
+      zoomableImg.addEventListener('click', () => {
+        overlayImg.src = zoomableImg.src;
+        overlay.classList.add('active');
+      });
+    }
+
+    overlay.addEventListener('click', () => {
+      overlay.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
