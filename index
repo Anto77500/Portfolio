@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antonin Bernardi — Portfolio BTS SIO SISR</title>
+  <meta name="description" content="Portfolio d'Antonin Bernardi, étudiant BTS SIO SISR — Solutions d'infrastructure, réseaux, cybersécurité." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="bg-mesh"><div class="bg-orb"></div></div>
+
+  <nav>
+    <a href="#hero" class="nav-logo">AB<span style="color:var(--text-muted);font-weight:400">.</span></a>
+    <div class="nav-links">
+      <a href="#about">À propos</a>
+      <a href="#skills">Compétences</a>
+      <a href="#projects">Projets</a>
+      <a href="#Tableau-e5">Tableau E5</a>
+      <a href="#veille">Veille</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <main>
+    <section id="hero">
+      <div class="hero-left reveal">
+        <div class="hero-badge">Disponible pour une alternance</div>
+        <h1 class="hero-title">Antonin Bernardi</h1>
+        <div class="hero-sub">Étudiant <span class="highlight">BTS SIO SISR</span></div>
+        <p class="hero-desc">
+          Passionné par les infrastructures réseaux, la cybersécurité et l'administration système. En cours de construction de compétences solides pour sécuriser et optimiser les systèmes d'information.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary">Voir les projets →</a>
+          <a href="#contact" class="btn-secondary">Me contacter</a>
+        </div>
+      </div>
+      
+      <div class="hero-right reveal">
+        <div class="hero-card">
+          <div class="card-header">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="card-title">sys_admin@antonin:~</span>
+          </div>
+          <div class="card-body">
+            <p class="code-ln"><span class="code-usr">antonin@pc:~$</span> cat objectif.txt</p>
+            <p class="code-out">Mettre en pratique mes compétences théoriques et pratiques en réseau et cybersécurité au sein d'une entreprise innovante.</p>
+            <p class="code-ln"><span class="code-usr">antonin@pc:~$</span> ssh bts@sisr</p>
+            <p class="code-out" style="color:var(--cyan-txt)">Welcome to BTS SIO Option SISR Portfolio</p>
+            <p class="code-ln"><span class="code-usr">antonin@pc:~$</span> <span class="cursor">_</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-container">
+        <div class="about-inner">
+          <div class="about-left reveal">
+            <span class="section-tag">Parcours</span>
+            <h2 class="section-title">À propos de moi</h2>
+            <p class="about-text">
+              Actuellement étudiant en BTS SIO (Services Informatiques aux Organisations) option SISR (Solutions d'Infrastructure, Systèmes et Réseaux) en première année, j'ai tracé mon parcours depuis un Bac Professionnel SN (Systèmes Numériques).
+            </p>
+            <p class="about-text">
+              Mon objectif professionnel est d'acquérir une solide expérience terrain à travers une alternance, puis d'évoluer vers les métiers de l'administration réseau et de la cybersécurité. Autodidacte et curieux, j'aime tester de nouvelles configurations et comprendre le fonctionnement intime des protocoles.
+            </p>
+          </div>
+          <div class="about-right reveal">
+            <div class="info-box">
+              <div class="info-item">
+                <span class="info-lbl">Localisation</span>
+                <span class="info-val">Chelles, Seine-et-Marne (77)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-lbl">Diplôme visé</span>
+                <span class="info-val">BTS SIO Option SISR (2027)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-lbl">Formation Précédente</span>
+                <span class="info-val">Bac Pro SN (Systèmes Numériques)</span>
+              </div>
+              <div class="info-item">
+                <span class="info-lbl">Langues</span>
+                <span class="info-val">Français (Maternel) · Anglais (Scolaire B1)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-viewer-grid" style="margin-top: 3rem; justify-content: center;">
+          <div class="doc-box reveal" style="max-width: 500px; margin: 0 auto;">
+            <h3>CV</h3>
+            <div class="doc-preview">
+              <a href="Image CV.png" target="_blank" title="Cliquez pour agrandir">
+                <img src="Image CV.png" alt="Aperçu du CV" class="doc-img" />
+              </a>
+            </div>
+            <a href="Image CV.png" download="CV_Antonin_Bernardi.png" class="btn-primary">Télécharger le CV 📄</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-container">
+        <span class="section-tag">Expertise</span>
+        <h2 class="section-title">Mes Compétences</h2>
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <div class="skill-header">
+              <span class="skill-icon">⚡</span>
+              <h3>Réseaux & Protocoles</h3>
+            </div>
+            <div class="skill-body">
+              <div class="skill-item">
+                <div class="skill-info"><span>Routage & Commutation (VLAN, OSPF)</span><span class="skill-pct">85%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-info"><span>Services IP (DNS, DHCP, NAT)</span><span class="skill-pct">80%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-info"><span>Cisco IOS / Packet Tracer</span><span class="skill-pct">85%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-card reveal">
+            <div class="skill-header">
+              <span class="skill-icon">🔒</span>
+              <h3>Systèmes & Sécurité</h3>
+            </div>
+            <div class="skill-body">
+              <div class="skill-item">
+                <div class="skill-info"><span>Linux (Debian/Ubuntu Server)</span><span class="skill-pct">75%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-info"><span>Windows Server & Active Directory</span><span class="skill-pct">70%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 70%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-info"><span>Sécurisation des infrastructures</span><span class="skill-pct">65%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 65%"></div></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="skill-card reveal">
+            <div class="skill-header">
+              <span class="skill-icon">💻</span>
+              <h3>Développement & Données</h3>
+            </div>
+            <div class="skill-body">
+              <div class="skill-item">
+                <div class="skill-info"><span>HTML5 / CSS3 / JavaScript</span><span class="skill-pct">75%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 75%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-info"><span>PHP & Scripting basique</span><span class="skill-pct">60%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-info"><span>Gestion SQL (MySQL, MariaDB)</span><span class="skill-pct">65%</span></div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 65%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-container">
+        <span class="section-tag">Réalisations</span>
+        <h2 class="section-title">Projets Sélectionnés</h2>
+        <div class="projects-grid">
+          
+          <div class="project-card reveal">
+            <div class="project-img-placeholder" style="background: linear-gradient(135deg, #0b0b20, rgba(0,229,255,0.15))">💻</div>
+            <div class="project-content">
+              <span class="project-meta">Projet 01 · Services d'Infrastructure</span>
+              <h3 class="project-title">Serveur Linux d'Infrastructure Intégrée</h3>
+              <p class="project-desc">Installation, configuration stable et sécurisation pas-à-pas des rôles DNS ISC-DHCP Server sur une distribution Debian de production.</p>
+              <a href="pages/projet1.html" class="project-link">Consulter le projet de cours →</a>
+            </div>
+          </div>
+          
+          <div class="project-card reveal">
+            <div class="project-img-placeholder" style="background: linear-gradient(135deg, #0b0b20, rgba(139,92,246,0.15))">🌐</div>
+            <div class="project-content">
+              <span class="project-meta">Projet 02 · Architecture Réseau</span>
+              <h3 class="project-title">Architecture Réseau Multi-VLANs</h3>
+              <p class="project-desc">Simulation complète d'une infrastructure d'entreprise sous Packet Tracer avec routage inter-VLAN, DHCP centralisé et listes de contrôle d'accès (ACL).</p>
+              <a href="pages/projet2.html" class="project-link">Consulter le projet de cours →</a>
+            </div>
+          </div>
+          
+          <div class="project-card reveal">
+            <div class="project-img-placeholder" style="background: linear-gradient(135deg, #0b0b20, rgba(16,185,129,0.15))">🗄️</div>
+            <div class="project-content">
+              <span class="project-meta">Projet 03 · Application & Données</span>
+              <h3 class="project-title">Déploiement d'une Base de Données Sécurisée</h3>
+              <p class="project-desc">Mise en place d'un serveur de base de données relationnelle sous Linux, gestion des privilèges utilisateurs et scripts de sauvegarde automatique.</p>
+              <a href="pages/projet3.html" class="project-link">Consulter le projet de cours →</a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section id="Tableau-e5">
+      <div class="section-container">
+        <span class="section-tag">Dossier Technique</span>
+        <h2 class="section-title">Tableau E5 — Documents Officiels</h2>
+        
+        <div class="doc-viewer-grid" style="display: flex; justify-content: center;">
+          
+          <div class="doc-box reveal" style="width: 100%; max-width: 600px;">
+            <h3>Tableau de Synthèse E5</h3>
+            <div class="doc-preview">
+              <a href="Image Tableau de Synthése.png" target="_blank" title="Cliquez pour agrandir">
+                <img src="Image Tableau de Synthése.png" alt="Aperçu du Tableau" class="doc-img" />
+              </a>
+            </div>
+            <a href="Image Tableau de Synthése.png" download="Tableau_Synthese.png" class="btn-primary">Télécharger le Tableau 📊</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="veille">
+      <div class="section-container">
+        <div class="veille-header-row" style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <span class="section-tag">Flux d'informations</span>
+            <h2 class="section-title">Veille Technologique</h2>
+            <p style="color:var(--text-main); margin-bottom:1.5rem; max-width:600px;">Suivi automatisé de l'actualité de la cybersécurité et des failles système majeures.</p>
+          </div>
+          <button id="refresh-veille" class="btn-secondary" style="padding:0.6rem 1.2rem; font-size:0.8rem; display:inline-flex; align-items:center; gap:0.5rem; cursor:pointer;">
+            🔄 Actualiser les flux
+          </button>
+        </div>
+        <div class="veille-filters">
+          <button class="source-btn active" data-source="all">Tout voir</button>
+          <button class="source-btn" data-source="certfr">CERT-FR</button>
+          <button class="source-btn" data-source="anssi">ANSSI</button>
+          <button class="source-btn" data-source="cyber">Cybermalveillance</button>
+          <button class="source-btn" data-source="zk">Zataz</button>
+        </div>
+        <div class="veille-grid" id="veille-container">
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-container contact-inner">
+        <div class="reveal">
+          <span class="section-tag">Échangeons</span>
+          <h2 class="section-title">Me Contacter</h2>
+          <p style="color:var(--text-main); margin-bottom: 2rem;">Un projet, une opportunité d'alternance ou une simple question ? N'hésitez pas à me joindre.</p>
+          <div class="contact-links">
+            <a href="mailto:bernardiantonin5@gmail.com" class="contact-link">
+              <div class="contact-link-left"><span class="contact-link-lbl">Email</span><span class="contact-link-val">bernardiantonin5@gmail.com</span></div>
+              <span class="contact-link-arrow">→</span>
+            </a>
+            <a href="tel:0767825893" class="contact-link">
+              <div class="contact-link-left"><span class="contact-link-lbl">Téléphone</span><span class="contact-link-val">07 67 82 58 93</span></div>
+              <span class="contact-link-arrow">→</span>
+            </a>
+            <a href="https://github.com/antoninbernardi" target="_blank" class="contact-link">
+              <div class="contact-link-left"><span class="contact-link-lbl">GitHub</span><span class="contact-link-val">github.com/antoninbernardi</span></div>
+              <span class="contact-link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <form class="contact-form" onsubmit="event.preventDefault(); alert('Message simulé avec succès !');">
+            <div class="form-group">
+              <label class="form-label" for="name">Nom complet</label>
+              <input class="form-input" type="text" id="name" placeholder="Jean Dupont" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Adresse Email</label>
+              <input class="form-input" type="email" id="email" placeholder="jean@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-textarea" id="message" placeholder="Votre message ici..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary form-submit">Envoyer le message →</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Antonin Bernardi · BTS SIO SISR</span>
+    <span>Fait avec passion pour l'informatique</span>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
